@@ -1,26 +1,29 @@
-import React, { useState }　from "react";
+import React, { useState } from "react";
 
 function FruitList() {
   const [fruits, setFruits] = useState([
     "🍎 りんご",
     "🍌 バナナ",
     "🍊 みかん",
-    "🍇 ぶどう"
+    "🍇 ぶどう",
   ]);
   const [keyword, setKeyword] = useState("");
   const [newFruit, setNewFruit] = useState("");
 
-    // 絞り込み処理
-    const filtered = fruits.filter((fruit) =>
-      fruit.includes(keyword)
-    );
+  // 絞り込み処理
+  const filtered = fruits.filter((fruit) => fruit.includes(keyword));
 
- // 追加処理
- const handleAddFruit = () => {
-   if (newFruit.trim() === "") return; // 空文字なら追加しない
-   setFruits([...fruits, newFruit]);
-   setNewFruit(""); // 入力欄をクリア
- };
+  // 追加処理
+  const handleAddFruit = () => {
+    if (newFruit.trim() === "") return; // 空文字なら追加しない
+    setFruits([...fruits, newFruit]);
+    setNewFruit(""); // 入力欄をクリア
+  };
+
+  // 削除処理
+  const handleDelete = (targetFruit) => {
+    setFruits(fruits.filter((fruit) => fruit !== targetFruit));
+  };
 
   return (
     <div>
@@ -46,7 +49,15 @@ function FruitList() {
 
       <ul>
         {filtered.map((fruit, index) => (
-          <li key={index}>{fruit}</li>
+          <li key={index}>
+            {fruit}
+            <button
+              onClick={() => handleDelete(fruit)}
+              style={{ marginLeft: "0.5em" }}
+            >
+              ×
+            </button>
+          </li>
         ))}
       </ul>
     </div>
