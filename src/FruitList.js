@@ -16,6 +16,8 @@ function FruitList() {
   // 追加処理
   const handleAddFruit = () => {
     if (newFruit.trim() === "") return; // 空文字なら追加しない
+    // 文末に追加
+    // スプレッド構文 (...) 配列の中身を「展開」して、末尾に newFruit をくっつけた新しい配列を作る
     setFruits([...fruits, newFruit]);
     setNewFruit(""); // 入力欄をクリア
   };
