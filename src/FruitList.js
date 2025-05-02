@@ -1,14 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function FruitList() {
-  const [fruits, setFruits] = useState([
-    "🍎 りんご",
-    "🍌 バナナ",
-    "🍊 みかん",
-    "🍇 ぶどう",
-  ]);
+  const [fruits, setFruits] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [newFruit, setNewFruit] = useState("");
+
+  // ✅ 初回ロード時に保存されたデータを読み込む
+  useEffect(() => {
+    const saved = localStorage.getItem("fruits");
+    if (saved) {
+      setFruits(JSON.parse(saved));
+    }
+  }, []);
+
+  // ✅ fruitsが変更されたとき、自動で保存
+  useEffect(() => {
+    localStorage.setItem("fruits", JSON.stringify(fruits));
+  }, [fruits]);
 
   // 絞り込み処理
   const filtered = fruits.filter((fruit) => fruit.includes(keyword));
