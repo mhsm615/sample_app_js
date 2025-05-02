@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 function FruitList() {
-  const [fruits, setFruits] = useState([]);
+  // 1. 初期値を localStorage から読み込む
+  const [fruits, setFruits] = useState(() => {
+    const saved = localStorage.getItem("fruits");
+    return saved ? JSON.parse(saved) : [];
+  });
   const [keyword, setKeyword] = useState("");
   const [newFruit, setNewFruit] = useState("");
 
-  // ✅ 初回ロード時に保存されたデータを読み込む
-  useEffect(() => {
-    const saved = localStorage.getItem("fruits");
-    if (saved) {
-      setFruits(JSON.parse(saved));
-    }
-  }, []);
-
-  // ✅ fruitsが変更されたとき、自動で保存
+  /// 2. fruitsが変わるたびに保存する
   useEffect(() => {
     localStorage.setItem("fruits", JSON.stringify(fruits));
   }, [fruits]);
