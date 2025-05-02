@@ -23,8 +23,8 @@ function FruitList() {
   };
 
   // 削除処理
-  const handleDelete = (targetFruit) => {
-    setFruits(fruits.filter((fruit) => fruit !== targetFruit));
+  const handleDelete = (targetIndex) => {
+    setFruits(fruits.filter((_, index) => index !== targetIndex));
   };
 
   return (
@@ -50,11 +50,11 @@ function FruitList() {
       </div>
 
       <ul>
-        {filtered.map((fruit, index) => (
+        {fruits.map((fruit, index) => (
           <li key={index}>
             {fruit}
             <button
-              onClick={() => handleDelete(fruit)}
+              onClick={() => handleDelete(index)}
               style={{ marginLeft: "0.5em" }}
             >
               ×
