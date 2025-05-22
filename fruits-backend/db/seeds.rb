@@ -7,3 +7,6 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+Fruit.create!(name: "りんご", category: "赤")
+Fruit.create!(name: "バナナ", category: "黄色")
+Fruit.create!(name: "ぶどう", category: "紫")
