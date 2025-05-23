@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./Sidebar";
+
+// フルーツの型定義
+type Fruit = {
+  id?: number; // APIから来るデータには id があるが、追加時にはないので optional
+  name: string;
+  category: string;
+};
 
 function FruitList() {
   const defaultFruits = [
@@ -8,19 +15,24 @@ function FruitList() {
     { name: "いちご", category: "ベリー系" },
   ];
 
-  const [fruits, setFruits] = useState(() => {
-    const saved = localStorage.getItem("fruits");
-    return saved ? JSON.parse(saved) : defaultFruits;
-  });
+  //const [fruits, setFruits] = useState(() => {
+  //  const saved = localStorage.getItem("fruits");
+  //  return saved ? JSON.parse(saved) : defaultFruits;
+  //});
 
+  const [fruits, setFruits] = useState<Fruit[]>(defaultFruits);
   const [keyword, setKeyword] = useState("");
   const [newFruit, setNewFruit] = useState("");
   const [newCategory, setNewCategory] = useState("その他");
   const [selectedCategory, setSelectedCategory] = useState("すべて");
 
   useEffect(() => {
-    localStorage.setItem("fruits", JSON.stringify(fruits));
-  }, [fruits]);
+  fetch("http://localhost:3000/api/v1/fruits")
+    .then((res) => res.json())
+    .then((data) => {
+      setFruits(data);
+    });
+  }, []);
 
   const filtered = fruits.filter(
     (fruit) =>
@@ -40,7 +52,7 @@ function FruitList() {
     setNewCategory("その他");
   };
 
-  const handleDelete = (targetIndex) => {
+ const handleDelete = (targetIndex: number) => {
     setFruits(fruits.filter((_, index) => index !== targetIndex));
   };
 

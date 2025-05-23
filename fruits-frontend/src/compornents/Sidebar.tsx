@@ -1,7 +1,12 @@
 import React from "react";
 
-function Sidebar({ selectedCategory, onCategoryChange }) {
-  const categories = ["すべて", "南国系", "ベリー系", "その他"];
+type SidebarProps = {
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
+};
+
+function Sidebar({ selectedCategory, onCategoryChange }: SidebarProps) {
+  const categories = ["赤", "黄色", "紫", "その他"];
 
   return (
     
