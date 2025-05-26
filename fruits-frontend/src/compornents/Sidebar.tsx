@@ -1,5 +1,3 @@
-import React from "react";
-
 type SidebarProps = {
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
